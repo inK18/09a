@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+	<context targetRuntime="MyBatis3" id="testTables">
+		<commentGenerator>
+			<!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+			<property value="true" name="suppressAllComments"/>
+		</commentGenerator>
+		
+		<!--数据库连接的信息：驱动类、连接地址、用户名、密码 -->
+		<jdbcConnection password="123456" userId="root" 
+		connectionURL="jdbc:mysql://localhost:3306/h-moni2" 
+		driverClass="com.mysql.jdbc.Driver"> 
+		</jdbcConnection>
+		
+		
+		<!-- <jdbcConnection driverClass="oracle.jdbc.OracleDriver"connectionURL="jdbc:oracle:thin:@127.0.0.1:1521:yycg"userId="yycg"password="yycg"></jdbcConnection> -->
+		<!-- 默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer，为 true时把JDBC DECIMAL 和 NUMERIC 类型解析为java.math.BigDecimal -->
+		
+		<javaTypeResolver>
+			<property value="false" name="forceBigDecimals"/>
+		</javaTypeResolver>
+		
+		<!-- targetProject:生成PO类的位置 -->
+		<javaModelGenerator targetProject=".\src" 
+			targetPackage="com.jiyun.pojo">
+			<!-- enableSubPackages:是否让schema作为包的后缀 -->
+			<property value="false" name="enableSubPackages"/>
+			
+			<!-- 从数据库返回的值被清理前后的空格 -->
+			<property value="true" name="trimStrings"/>
+		</javaModelGenerator>
+		
+		<!-- targetProject:mapper映射文件生成的位置 -->
+		<sqlMapGenerator targetProject=".\src" 
+			targetPackage="com.jiyun.mapper">
+			<!-- enableSubPackages:是否让schema作为包的后缀 -->
+			<property value="false" name="enableSubPackages"/>
+		</sqlMapGenerator>
+		
+		<!-- targetPackage：mapper接口生成的位置 -->
+		<javaClientGenerator targetProject=".\src" 
+			targetPackage="com.jiyun.mapper" type="XMLMAPPER">
+			<!-- enableSubPackages:是否让schema作为包的后缀 -->
+			<property value="false" name="enableSubPackages"/>
+		</javaClientGenerator>
+		
+		
+		<!-- 指定数据库表 -->
+		<!-- <table tableName="items"/>
+		<table tableName="orders"/>
+		<table tableName="orderdetail"/> -->
+		<!-- <table tableName="user"/> -->
+		<!-- <table tableName="t_user"/>
+		<table tableName="t_role"/> -->
+		<table tableName="emp"></table>
+		
+		<!-- <table schema="" tableName="sys_user"></table><table schema="" tableName="sys_role"></table><table schema="" tableName="sys_permission"></table><table schema="" tableName="sys_user_role"></table><table schema="" tableName="sys_role_permission"></table> -->
+		<!-- 有些表的字段需要指定java类型 <table schema="" tableName=""><columnOverride column="" javaType="" /></table> -->
+		
+	</context>
+</generatorConfiguration>

@@ -23,7 +23,7 @@ import com.jiyun.service.LessonService;
 @Controller
 @RequestMapping("Lesson")
 public class LessonController {
-
+	//你好
 	@Autowired
 	LessonService ls;
 	
