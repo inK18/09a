@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jiyun.mapper.LessonMapper">
+	<!-- <resultMap type="Lesson" id="findAddressMap">
+		<id column="id" property="id"/>
+		<result column="kname" property="kname"/>
+		<result column="sum" property="sum"/>
+		<result column="jname" property="jname"/>
+		<result column="aid" property="aid"/>
+		<result column="bid" property="bid"/>
+		<result column="cid" property="cid"/>
+	</resultMap> -->
+	
+	<select id="findAll" resultType="lesson" parameterType="lesson">
+		SELECT s.*,a.name AS aname,
+		b.name AS bname,
+		c.name AS cname 
+		FROM lesson s,address a,address b,address c 
+		WHERE s.aid=a.`id` 
+		AND s.bid=b.`id` 
+		AND s.cid=c.`id`
+		<if test="kname!=null and kname!=''">and kname like '%${kname}%'</if>
+		<if test="sum1!=null and sum1!=''">and #{sum1} &lt;=s.sum</if>
+		<if test="sum2!=null and sum2!=''">and #{sum2} &gt;=s.sum</if>
+		order by s.id
+	</select>
+	
+	<select id="findAddressId" parameterType="int" resultType="address">
+		select * from address where pid=#{pid}
+	</select>
+	<select id="findKname" parameterType="String" resultType="int">
+		select count(*) from lesson where kname=#{kname}
+	</select>
+	<insert id="add" parameterType="lesson" keyProperty="id" useGeneratedKeys="true">
+		insert into lesson values(null,#{kname},#{sum},#{jname},#{aid},#{bid},#{cid})
+	</insert>
+	<delete id="delete" parameterType="int">
+		delete from lesson where id=#{id}
+	</delete>
+	<select id="findById" parameterType="int" resultType="lesson">
+		select * from lesson where id=#{id}
+	</select>
+	<update id="update" parameterType="lesson">
+		update lesson set kname=#{kname},sum=#{sum},jname=#{jname},aid=#{aid},bid=#{bid},cid=#{cid} where id=#{id}
+	</update>
+</mapper>
